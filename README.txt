@@ -20,6 +20,12 @@ mini-game however you see fit and it can be as straight forward as you want.
 There is also no extended functionality of Phaser engine and it's architecture,
 so you can follow the documentation and examples.
 
+Optional tasks are there only if you finish most of the regular tasks and would
+still like to continue and give the game more polish. You can also try to do
+some of these tasks instead of regular tasks, if you will find them easier to
+do. Feel free to also come up with your own polishing task, but again, this is
+purely optional.
+
 
 
 For Windows users
@@ -94,7 +100,7 @@ Weapons
     Implement secondary fire:
     - spaceship should shoot a strong double laser cannon from it's wings
     - secondary fire button should be mapped to an alt
-    - after secondary fire is used, start a 30s cooldown during which this
+    - after secondary fire is used, start a 10s cooldown during which this
       fire cannot be used
     - visualize the cooldown with a progress bar
 
@@ -117,15 +123,13 @@ Lives
       the player with the ability to restart the game
 
 
-Shield
+Sound effects
 
-    Imeplement a power-up:
-    - some asteroids can on their destruction drop a shield power up
-    - when picked up by the player, it should apply a shield that prevents
-      damage from asteroids
-    - shield should stay up only for limited time
-    - if another power up is picked with a shield already up, the timer for the
-      shield should get reset and start again
+    Implement various sounds:
+    - shooting of the lasers
+    - gaining and losing of shield
+    - death sound
+    - shatter of the asteroid
 
 
 Effects
@@ -142,17 +146,19 @@ Score
     - score should be visible to the player somewhere on the screen
 
 
+Shield
+
+    Imeplement a power-up:
+    - some asteroids can on their destruction drop a shield power up
+    - when picked up by the player, it should apply a shield that prevents
+      damage from asteroids
+    - shield should stay up only for limited time
+    - if another power up is picked with a shield already up, the timer for the
+      shield should get reset and start again
+
+
 Interface
 
     Implement selection of a ship:
     - let the player choose different spaceship
     - allow either selection of a color variation, or spaceship class, or both
-
-
-Sound effects
-
-    Implement various sounds:
-    - shooting of the lasers
-    - gaining and losing of shield
-    - death sound
-    - shatter of the asteroid
