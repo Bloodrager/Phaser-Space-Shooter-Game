@@ -56,7 +56,7 @@ module.exports = {
       filename: '[name].[contenthash].css'
     }),
     new HtmlWebpackPlugin({
-      title: 'Phaser Game',
+      title: 'Space Shooter Game',
       template: indexHtml
     })
   ]

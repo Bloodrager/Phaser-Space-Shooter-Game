@@ -2,6 +2,12 @@
     margin: 0;
     padding: 0;
 }
+
+@font-face {
+ font-family: "font1";
+ src: url("/assets/fonts/kenvector_future.ttf")format("truetype");
+}
+
 html, body {
     height: 100%;
 }
@@ -16,3 +22,4 @@ canvas {
     right: 0;
     bottom: 0;
 }
+

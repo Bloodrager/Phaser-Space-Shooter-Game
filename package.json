@@ -2,7 +2,7 @@
   "name": "@bvs/spaceship",
   "version": "1.0.0",
   "main": "src/entry/index.ts",
-  "author": "Zdeněk Novák <novak@bigvillagestudio.com>",
+  "author": "Rastislav Bvoc <rabvoc@gmail.com>",
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
