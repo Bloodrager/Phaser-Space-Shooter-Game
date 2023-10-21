@@ -7,6 +7,7 @@ class Scene2 extends Phaser.Scene {
 
   private playerSpeed = 700;
   private score = 0;
+  private starsCount = 0;
   private scoreFormated = "";
   private background!: Phaser.GameObjects.TileSprite;
   private laserSound!: Phaser.Sound.BaseSound;
@@ -45,8 +46,8 @@ class Scene2 extends Phaser.Scene {
       detune: 0,
       seek: 0,
       loop: true,
-      delay: 0
-    }
+      delay: 0,
+    };
     this.music.play(musicConfig);
 
     this.meteor1 = this.add.image(250, 450, "meteor1");
@@ -82,6 +83,7 @@ class Scene2 extends Phaser.Scene {
       star.setVelocity(100, 100);
       star.setCollideWorldBounds(true);
       star.setBounce(1);
+      this.starsCount++;
     }
 
     this.player = this.physics.add.sprite(960, 1000, "player");
@@ -128,12 +130,23 @@ class Scene2 extends Phaser.Scene {
     this.scoreLabel.text = "SCORE " + this.scoreFormated;
   }
 
+  spawnStar() {
+    let star = this.physics.add.sprite(16, 16, "star");
+    this.stars.add(star);
+    star.setRandomPosition(0, 0, 1920, 1080);
+    star.setVelocity(100, 100);
+    star.setCollideWorldBounds(true);
+    star.setBounce(1);
+    this.starsCount++;
+  }
+
   pickStar(player: any, star: any) {
     star.disableBody(true, true);
     this.score += 50;
     this.scoreFormated = this.zeroPad(this.score, 6);
     this.scoreLabel.text = "SCORE " + this.scoreFormated;
     this.starSound.play();
+    this.starsCount -= 1;
   }
 
   damagePlayer(player: any, meteor: any) {
@@ -214,6 +227,9 @@ class Scene2 extends Phaser.Scene {
     this.background.tilePositionY -= 0.5;
 
     this.movePlayerManager();
+    if (this.starsCount < 5) {
+      this.spawnStar();
+    }
 
     if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
       if (this.player.active) {
