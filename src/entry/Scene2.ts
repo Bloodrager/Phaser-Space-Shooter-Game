@@ -1,4 +1,5 @@
 import Laser from "./laser";
+import Canon from "./canon";
 
 class Scene2 extends Phaser.Scene {
   constructor() {
@@ -26,6 +27,7 @@ class Scene2 extends Phaser.Scene {
   private player!: Phaser.Physics.Arcade.Sprite;
   private cursorKeys!: Phaser.Types.Input.Keyboard.CursorKeys;
   private spacebar!: Phaser.Input.Keyboard.Key;
+  private altbar!: Phaser.Input.Keyboard.Key;
   private laser!: Phaser.Physics.Arcade.Sprite;
   private projectiles!: Phaser.GameObjects.Group;
   private scoreLabel!: Phaser.GameObjects.Text;
@@ -91,6 +93,9 @@ class Scene2 extends Phaser.Scene {
     this.player.setCollideWorldBounds(true);
     this.spacebar = this.input.keyboard.addKey(
       Phaser.Input.Keyboard.KeyCodes.SPACE
+    );
+    this.altbar = this.input.keyboard.addKey(
+      Phaser.Input.Keyboard.KeyCodes.ALT
     );
 
     this.projectiles = this.add.group();
@@ -236,6 +241,11 @@ class Scene2 extends Phaser.Scene {
         this.shootLaser();
       }
     }
+    if (Phaser.Input.Keyboard.JustDown(this.altbar)) {
+      if (this.player.active) {
+        this.shootCanon();
+      }
+    }
   }
 
   movePlayerManager() {
@@ -255,6 +265,11 @@ class Scene2 extends Phaser.Scene {
 
   shootLaser() {
     var laser = new Laser(this);
+    this.laserSound.play();
+  }
+
+  shootCanon() {
+    var canon = new Canon(this);
     this.laserSound.play();
   }
 

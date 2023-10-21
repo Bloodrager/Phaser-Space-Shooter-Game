@@ -44,6 +44,10 @@ class Scene1 extends Phaser.Scene {
       "laser",
       require("../../assets/sprites/game/Lasers/laserBlue01.png")
     );
+    this.load.image(
+      "canon",
+      require("../../assets/sprites/game/Lasers/laserRed01.png")
+    );
     this.load.audio("audio_laser", [
       require("../../assets/sounds/sfx_laser1.ogg"),
       require("../../assets/sounds/sfx_laser1.mp3"),

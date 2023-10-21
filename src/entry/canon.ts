@@ -1,9 +1,9 @@
-class Laser extends Phaser.GameObjects.Sprite {
+class Canon extends Phaser.GameObjects.Sprite {
     constructor(scene: any) {
         const x = scene.player.x;
         const y = scene.player.y - 60;
 
-        super(scene, x, y, "laser");
+        super(scene, x, y, "canon");
 
         scene.add.existing(this);
         scene.physics.world.enableBody(this);
@@ -18,4 +18,4 @@ class Laser extends Phaser.GameObjects.Sprite {
     }
 }
 
-export default Laser;
+export default Canon;
