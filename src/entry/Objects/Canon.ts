@@ -1,7 +1,7 @@
 class Canon extends Phaser.GameObjects.Sprite {
-    constructor(scene: any) {
-        const x = scene.player.x;
-        const y = scene.player.y - 60;
+    constructor(scene: any, x: any, y: any) {
+     //   const x = scene.player.x;
+      //  const y = scene.player.y - 60;
 
         super(scene, x, y, "canon");
 

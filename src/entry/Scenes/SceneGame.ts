@@ -1,5 +1,5 @@
-import Laser from "../Objects/laser";
-import Canon from "../Objects/canon";
+import Laser from "../Objects/Laser";
+import Canon from "../Objects/Canon";
 
 class SceneGame extends Phaser.Scene {
   constructor() {
@@ -10,6 +10,7 @@ class SceneGame extends Phaser.Scene {
   private score = 0;
   private starsCount = 0;
   private scoreFormated = "";
+  private cannonReady = true;
   private background!: Phaser.GameObjects.TileSprite;
   private laserSound!: Phaser.Sound.BaseSound;
   private loseSound!: Phaser.Sound.BaseSound;
@@ -243,9 +244,22 @@ class SceneGame extends Phaser.Scene {
     }
     if (Phaser.Input.Keyboard.JustDown(this.altbar)) {
       if (this.player.active) {
-        this.shootCanon();
+        if (this.cannonReady) {
+          this.shootCanon();
+          this.cannonReady = false;
+          this.time.addEvent({
+            delay: 10000,
+            callback: this.resetCD,
+            callbackScope: this,
+            loop: false,
+          });
+        }
       }
     }
+  }
+
+  resetCD(){
+    this.cannonReady = true;
   }
 
   movePlayerManager() {
@@ -269,7 +283,9 @@ class SceneGame extends Phaser.Scene {
   }
 
   shootCanon() {
-    var canon = new Canon(this);
+    var canon1 = new Canon(this, this.player.x - 20, this.player.y - 60);
+    var canon2 = new Canon(this, this.player.x + 20, this.player.y - 60);
+
     this.laserSound.play();
   }
 
