@@ -1,7 +1,7 @@
 import "../../assets/html/style.css";
 import * as Phaser from "phaser";
-import Scene1 from "./Scene1";
-import Scene2 from "./Scene2";
+import ScenePreload from "./Scenes/ScenePreload";
+import SceneGame from "./Scenes/SceneGame";
 
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
@@ -10,7 +10,7 @@ const config: Phaser.Types.Core.GameConfig = {
   },
   width: 1920,
   height: 1080,
-  scene: [Scene1, Scene2],
+  scene: [ScenePreload, SceneGame],
   physics: {
     default: "arcade",
     arcade:{

@@ -1,7 +1,7 @@
-import Laser from "./laser";
-import Canon from "./canon";
+import Laser from "../Objects/laser";
+import Canon from "../Objects/canon";
 
-class Scene2 extends Phaser.Scene {
+class SceneGame extends Phaser.Scene {
   constructor() {
     super("playGame");
   }
@@ -282,4 +282,4 @@ class Scene2 extends Phaser.Scene {
   }
 }
 
-export default Scene2;
+export default SceneGame;
