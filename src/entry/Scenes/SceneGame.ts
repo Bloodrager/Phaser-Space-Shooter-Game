@@ -11,6 +11,10 @@ class SceneGame extends Phaser.Scene {
   private starsCount = 0;
   private scoreFormated = "";
   private cannonReady = true;
+  private lastUpdateTime: number = 0;
+  private cooldownValue: number = 100;
+  private progressBar: Phaser.GameObjects.Graphics;
+  private progressBarBG: Phaser.GameObjects.Graphics;
   private background!: Phaser.GameObjects.TileSprite;
   private laserSound!: Phaser.Sound.BaseSound;
   private loseSound!: Phaser.Sound.BaseSound;
@@ -32,6 +36,8 @@ class SceneGame extends Phaser.Scene {
   private laser!: Phaser.Physics.Arcade.Sprite;
   private projectiles!: Phaser.GameObjects.Group;
   private scoreLabel!: Phaser.GameObjects.Text;
+  private canonLabel!: Phaser.GameObjects.Text;
+
 
   create() {
     this.background = this.add.tileSprite(0, 0, 1920, 1080, "background");
@@ -133,7 +139,27 @@ class SceneGame extends Phaser.Scene {
       fontFamily: "font1",
       fontSize: "36px",
     });
+
     this.scoreLabel.text = "SCORE " + this.scoreFormated;
+
+    this.canonLabel = this.add.text(60, 90, "CANON", {
+      fontFamily: "font1",
+      fontSize: "36px",
+    });
+
+    this.progressBarBG = this.add.graphics();
+    this.progressBar = this.add.graphics();
+    this.updateProgressBar(this.cooldownValue);
+  }
+
+   updateProgressBar(value: number) {
+    this.progressBarBG.clear();
+    this.progressBarBG.fillStyle(0x000000, 1); 
+    this.progressBarBG.fillRect(235, 95, 110, 30); 
+
+    this.progressBar.clear();
+    this.progressBar.fillStyle(0x00ff00, 1); 
+    this.progressBar.fillRect(240, 100, value, 20); 
   }
 
   spawnStar() {
@@ -230,6 +256,9 @@ class SceneGame extends Phaser.Scene {
     this.moveMeteor(this.meteor5, 2.2);
     this.moveMeteor(this.meteor6, 3.3);
 
+    const deltaTime = time -this.lastUpdateTime;
+    this.lastUpdateTime = time;
+
     this.background.tilePositionY -= 0.5;
 
     this.movePlayerManager();
@@ -242,6 +271,13 @@ class SceneGame extends Phaser.Scene {
         this.shootLaser();
       }
     }
+
+    if (!this.cannonReady) {
+      this.cooldownValue += deltaTime * 0.01; 
+      this.cooldownValue = Phaser.Math.Clamp(this.cooldownValue, 0, 100);
+      this.updateProgressBar(this.cooldownValue);
+    }
+
     if (Phaser.Input.Keyboard.JustDown(this.altbar)) {
       if (this.player.active) {
         if (this.cannonReady) {
@@ -260,6 +296,7 @@ class SceneGame extends Phaser.Scene {
 
   resetCD(){
     this.cannonReady = true;
+    this.updateProgressBar(100);
   }
 
   movePlayerManager() {
@@ -285,7 +322,7 @@ class SceneGame extends Phaser.Scene {
   shootCanon() {
     var canon1 = new Canon(this, this.player.x - 20, this.player.y - 60);
     var canon2 = new Canon(this, this.player.x + 20, this.player.y - 60);
-
+    this.cooldownValue = 0;
     this.laserSound.play();
   }
 
